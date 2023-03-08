@@ -6,6 +6,27 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
+// Create an Apollo Provider to make every request work with the Apollo server.
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return{
+    headers: {
+      ...headers,
+      authorization: token? `Bearer ${token}`  : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
 
 function App() {
   return (
@@ -26,23 +47,3 @@ function App() {
 
 export default App;
 
-// Create an Apollo Provider to make every request work with the Apollo server.
-
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
-
-const authLink = setContext((_, { headers}) => {
-  const token = localStorage.getItem('id_token');
-  return{
-    headers: {
-      ...headers,
-      authorization: token? `Bearer ${token}`  : '',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
