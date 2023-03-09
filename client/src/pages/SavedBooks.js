@@ -7,7 +7,7 @@ import {
   Col
 } from 'react-bootstrap';
 
-import { getMe, deleteBook } from '../utils/API';
+
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
@@ -20,7 +20,7 @@ const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
   const [removeBook, {error}] = useMutation(REMOVE_BOOK);
 
-  const userData = data?.me || [];
+  const userData = data?.me || {};
 
   // Remove the useEffect() Hook that sets the state for UserData.
   //Instead, use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData.
@@ -37,7 +37,7 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await removeBook({
+      const { data } = await removeBook({
         variables: { bookId },
       });
       removeBookId(bookId);
@@ -48,7 +48,7 @@ const SavedBooks = () => {
   
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 

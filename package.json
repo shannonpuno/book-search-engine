@@ -14,5 +14,14 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  }
+  },
+  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shannonpuno/book-search-engine.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shannonpuno/book-search-engine/issues"
+  },
+  "homepage": "https://github.com/shannonpuno/book-search-engine#readme"
 }
