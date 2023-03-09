@@ -27,11 +27,11 @@ app.use(express.json());
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
-}
+};
 
 
 // Apollo server w/ GraphQL Schema
-const startApolloServer = async (typeDefs, resolvers) => {
+const startApolloServer = async (_typeDefs, _resolvers) => {
   await server.start();
   server.applyMiddleware({ app });
   
@@ -41,7 +41,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
       console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
     })
   })
-  };
+};
 
 // Call the async function to start the server
 startApolloServer(typeDefs, resolvers);
